@@ -19,14 +19,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -34,7 +32,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -63,32 +60,33 @@ class KeyResultControllerIntegrationTest {
 
   private NoteKeyResultDto noteKeyResultDto;
   private KeyResultDto keyResultDto;
+  private final Long dummyKeyResultId = 1L;
 
   @BeforeEach
   void setUp() {
     this.mockMvc =
-        MockMvcBuilders.webAppContextSetup(this.context).build();
+      MockMvcBuilders.webAppContextSetup(this.context).build();
 
     keyResultDto = KeyResultDto.builder()
-        .id(120L)
-        .parentObjectiveId(110L)
-        .title("title")
-        .description("description")
-        .startValue(1L)
-        .currentValue(1L)
-        .targetValue(10L)
-        .sequence(1)
-        .unit(Unit.NUMBER)
-        .noteIds(new ArrayList<>())
-        .keyResultMilestoneDtos(new ArrayList<>())
-        .build();
+      .id(120L)
+      .parentObjectiveId(110L)
+      .title("title")
+      .description("description")
+      .startValue(1L)
+      .currentValue(1L)
+      .targetValue(10L)
+      .sequence(1)
+      .unit(Unit.NUMBER)
+      .noteIds(new ArrayList<>())
+      .keyResultMilestoneDtos(new ArrayList<>())
+      .build();
 
     noteKeyResultDto = new NoteKeyResultDto(NoteDto.builder()
-        .noteId(122L)
-        .noteBody("Hello Burning OKR")
-        .userId(UUID.randomUUID())
-        .date(LocalDateTime.now())
-        .build());
+      .noteId(122L)
+      .noteBody("Hello Burning OKR")
+      .userId(UUID.randomUUID())
+      .date(LocalDateTime.now())
+      .build());
     noteKeyResultDto.setParentKeyResultId(keyResultDto.getId());
   }
 
@@ -102,240 +100,159 @@ class KeyResultControllerIntegrationTest {
   }
 
   @Test
-  void updateKeyResultById_shouldShouldStatus200_whenDtoIsValid() throws Exception {
+  void updateKeyResultById_shouldReturnStatus200_whenKeyResultDtoIsValid() throws Exception {
     KeyResult keyResultMock = mock(KeyResult.class);
     doNothing().when(keyResultMock).setId(any());
     doReturn(keyResultMock).when(keyResultMapper).mapDtoToEntity(this.keyResultDto);
 
-    MvcResult result =
-        this.mockMvc.perform(
-            put("/api/keyresults/{keyResultId}", keyResultDto.getId())
-                .content(new ObjectMapper().writeValueAsString(keyResultDto))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-        ).andReturn();
-
-    assertNotNull(result);
-    assertNotNull(keyResultDto);
-    assertEquals(HttpStatus.OK.value(), result.getResponse().getStatus());
-  }
-
-  @Test
-  void updateKeyResultById_shouldReturnStatus400_whenTitleIsNull() throws Exception {
-    keyResultDto.setTitle(null);
-
-    MvcResult result =
-        this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
-                .content(new ObjectMapper().writeValueAsString(keyResultDto))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-            )
-            .andExpect(status().isBadRequest())
-            .andReturn();
-
-    assertNotNull(result);
-    assertNotNull(keyResultDto);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
-  }
-
-  @Test
-  void updateKeyResultById_shouldReturnStatus400_whenTitleIsTooLong() throws Exception {
-    keyResultDto.setTitle(StringUtils.repeat("A", 256));
-
-    MvcResult result =
-        this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
-                .content(new ObjectMapper().writeValueAsString(keyResultDto))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-            )
-            .andExpect(status().isBadRequest())
-            .andReturn();
-
-    assertNotNull(result);
-    assertNotNull(keyResultDto);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
-  }
-
-  @Test
-  void updateKeyResultById_shouldReturnStatus400_whenTitleIsEmpty() throws Exception {
-    keyResultDto.setTitle("");
-
-    MvcResult result =
-      this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
+    this.mockMvc.perform(
+        put("/api/keyresults/{keyResultId}", keyResultDto.getId())
           .content(new ObjectMapper().writeValueAsString(keyResultDto))
           .contentType(MediaType.APPLICATION_JSON)
-          .accept(MediaType.APPLICATION_JSON)
-        )
-        .andExpect(status().isBadRequest())
-        .andReturn();
-
-    assertNotNull(result);
-    assertNotNull(keyResultDto);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+      )
+      .andExpect(status().isOk());
   }
 
   @Test
-  void updateKeyResultById_shouldReturnStatus400_whenDescriptionIsNull() throws Exception {
+  void updateKeyResultById_shouldReturnStatus400_whenKeyResultDtoTitleIsNull() throws Exception {
+    keyResultDto.setTitle(null);
+
+    this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
+        .content(new ObjectMapper().writeValueAsString(keyResultDto))
+        .contentType(MediaType.APPLICATION_JSON)
+      )
+      .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  void updateKeyResultById_shouldReturnStatus400_whenKeyResultDtoTitleIsTooLong() throws Exception {
+    keyResultDto.setTitle(StringUtils.repeat("A", 256));
+
+    this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
+        .content(new ObjectMapper().writeValueAsString(keyResultDto))
+        .contentType(MediaType.APPLICATION_JSON)
+      )
+      .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  void updateKeyResultById_shouldReturnStatus400_whenKeyResultDtoTitleIsEmpty() throws Exception {
+    keyResultDto.setTitle("");
+
+    this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
+        .content(new ObjectMapper().writeValueAsString(keyResultDto))
+        .contentType(MediaType.APPLICATION_JSON)
+      )
+      .andExpect(status().isBadRequest());
+  }
+
+  @Test
+  void updateKeyResultById_shouldReturnStatus400_whenKeyResultDtoDescriptionIsNull() throws Exception {
     keyResultDto.setDescription(null);
 
-    MvcResult result =
-        this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
-                .content(new ObjectMapper().writeValueAsString(keyResultDto))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-            )
-            .andExpect(status().isBadRequest())
-            .andReturn();
 
-    assertNotNull(result);
-    assertNotNull(keyResultDto);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+    this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
+        .content(new ObjectMapper().writeValueAsString(keyResultDto))
+        .contentType(MediaType.APPLICATION_JSON)
+      )
+      .andExpect(status().isBadRequest());
   }
 
   @Test
-  void updateKeyResultById_shouldReturnStatus400_whenDescriptionIsTooLong() throws Exception {
+  void updateKeyResultById_shouldReturnStatus400_whenKeyResultDtoDescriptionIsTooLong() throws Exception {
     keyResultDto.setDescription(StringUtils.repeat("A", 1024));
 
-    MvcResult result =
-        this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
-                .content(new ObjectMapper().writeValueAsString(keyResultDto))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-            )
-            .andExpect(status().isBadRequest())
-            .andReturn();
-
-    assertNotNull(result);
-    assertNotNull(keyResultDto);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+    this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
+        .content(new ObjectMapper().writeValueAsString(keyResultDto))
+        .contentType(MediaType.APPLICATION_JSON)
+      )
+      .andExpect(status().isBadRequest());
   }
 
   @Test
-  void updateKeyResultById_shouldReturnStatus400_whenStartValueIsNegative() throws Exception {
+  void updateKeyResultById_shouldReturnStatus400_whenKeyResultDtoStartValueIsNegative() throws Exception {
     keyResultDto.setStartValue(-1L);
 
-    MvcResult result =
-        this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
-                .content(new ObjectMapper().writeValueAsString(keyResultDto))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-            )
-            .andExpect(status().isBadRequest())
-            .andReturn();
-
-    assertNotNull(result);
-    assertNotNull(keyResultDto);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+    this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
+        .content(new ObjectMapper().writeValueAsString(keyResultDto))
+        .contentType(MediaType.APPLICATION_JSON)
+      )
+      .andExpect(status().isBadRequest());
   }
 
   @Test
-  void updateKeyResultById_shouldReturnStatus400_whenCurrentValueIsNegative() throws Exception {
+  void updateKeyResultById_shouldReturnStatus400_whenKeyResultDtoCurrentValueIsNegative() throws Exception {
     keyResultDto.setStartValue(-1L);
 
-    MvcResult result =
-        this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
-                .content(new ObjectMapper().writeValueAsString(keyResultDto))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-            )
-            .andExpect(status().isBadRequest())
-            .andReturn();
-
-    assertNotNull(result);
-    assertNotNull(keyResultDto);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+    this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
+        .content(new ObjectMapper().writeValueAsString(keyResultDto))
+        .contentType(MediaType.APPLICATION_JSON)
+      )
+      .andExpect(status().isBadRequest());
   }
 
   @Test
-  void updateKeyResultById_shouldReturnStatus400_whenTargetValueIsNegative() throws Exception {
+  void updateKeyResultById_shouldReturnStatus400_whenKeyResultDtoTargetValueIsNegative() throws Exception {
     keyResultDto.setStartValue(-1L);
 
-    MvcResult result =
-        this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
-                .content(new ObjectMapper().writeValueAsString(keyResultDto))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-            )
-            .andExpect(status().isBadRequest())
-            .andReturn();
-
-    assertNotNull(result);
-    assertNotNull(keyResultDto);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), result.getResponse().getStatus());
+    this.mockMvc.perform(put("/api/keyresults/{keyResultId}", keyResultDto.getId())
+        .content(new ObjectMapper().writeValueAsString(keyResultDto))
+        .contentType(MediaType.APPLICATION_JSON)
+      )
+      .andExpect(status().isBadRequest());
   }
 
   @Test
   void addNoteToKeyResult_shouldReturnStatus200_whenNoteKeyResultDtoIsValid() throws Exception {
-
-    MvcResult mvcResult =
-        this.mockMvc.perform(
-                post("/api/keyresults/{keyresultId}/notes", keyResultDto.getId())
-                    .content(new ObjectMapper()
-                        .findAndRegisterModules()
-                        .writeValueAsString(noteKeyResultDto)
-                    )
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON))
-            .andReturn();
-
-    assertNotNull(mvcResult);
-    assertEquals(HttpStatus.OK.value(), mvcResult.getResponse().getStatus());
+    this.mockMvc.perform(
+        post("/api/keyresults/{keyresultId}/notes", dummyKeyResultId)
+          .content(new ObjectMapper()
+            .findAndRegisterModules()
+            .writeValueAsString(noteKeyResultDto)
+          )
+          .contentType(MediaType.APPLICATION_JSON))
+      .andExpect(status().isOk());
   }
 
   @Test
   void addNoteToKeyResult_shouldReturnStatus400_whenNoteKeyResultDtoNoteBodyIsNull() throws Exception {
     noteKeyResultDto.setNoteBody(null);
 
-    MvcResult mvcResult =
-        this.mockMvc.perform(
-                post("/api/keyresults/{keyresultId}/notes", keyResultDto.getId())
-                    .content(new ObjectMapper()
-                        .findAndRegisterModules()
-                        .writeValueAsString(noteKeyResultDto)
-                    )
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON))
-            .andReturn();
-
-    assertNotNull(mvcResult);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), mvcResult.getResponse().getStatus());
+    this.mockMvc.perform(
+        post("/api/keyresults/{keyresultId}/notes", dummyKeyResultId)
+          .content(new ObjectMapper()
+            .findAndRegisterModules()
+            .writeValueAsString(noteKeyResultDto)
+          )
+          .contentType(MediaType.APPLICATION_JSON))
+      .andExpect(status().isBadRequest());
   }
 
   @Test
   void addNoteToKeyResult_shouldReturnStatus400_whenNoteKeyResultDtoNoteBodyIsTooLong() throws Exception {
     noteKeyResultDto.setNoteBody(StringUtils.repeat("a", 1024));
 
-    MvcResult mvcResult =
-      this.mockMvc.perform(
-          post("/api/keyresults/{keyresultId}/notes", keyResultDto.getId())
-            .content(new ObjectMapper()
-              .findAndRegisterModules()
-              .writeValueAsString(noteKeyResultDto)
-            )
-            .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON))
-        .andReturn();
-
-    assertNotNull(mvcResult);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), mvcResult.getResponse().getStatus());
+    this.mockMvc.perform(
+        post("/api/keyresults/{keyresultId}/notes", dummyKeyResultId)
+          .content(new ObjectMapper()
+            .findAndRegisterModules()
+            .writeValueAsString(noteKeyResultDto)
+          )
+          .contentType(MediaType.APPLICATION_JSON))
+      .andExpect(status().isBadRequest());
   }
 
   @Test
   void addNoteToKeyResult_shouldReturnStatus400_whenNoteKeyResultDtoNoteBodyIsEmpty() throws Exception {
     noteKeyResultDto.setNoteBody("");
 
-    MvcResult mvcResult =
-      this.mockMvc.perform(
-          post("/api/keyresults/{keyresultId}/notes", keyResultDto.getId())
-            .content(new ObjectMapper()
-              .findAndRegisterModules()
-              .writeValueAsString(noteKeyResultDto)
-            )
-            .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON))
-        .andReturn();
-
-    assertNotNull(mvcResult);
-    assertEquals(HttpStatus.BAD_REQUEST.value(), mvcResult.getResponse().getStatus());
+    this.mockMvc.perform(
+        post("/api/keyresults/{keyresultId}/notes", dummyKeyResultId)
+          .content(new ObjectMapper()
+            .findAndRegisterModules()
+            .writeValueAsString(noteKeyResultDto)
+          )
+          .contentType(MediaType.APPLICATION_JSON))
+      .andExpect(status().isBadRequest());
   }
 }
