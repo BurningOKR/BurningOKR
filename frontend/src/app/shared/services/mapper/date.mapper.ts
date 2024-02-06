@@ -9,16 +9,16 @@ export class DateMapper {
   static mapDateToDateString(date: Date): string {
     const parsedDate: Date = this.mapToDate(date);
 
-    return date ? `${parsedDate.getFullYear()}-${parsedDate.getMonth()}-${parsedDate.getDate()}` : null;
+    return date ? `${parsedDate.getFullYear()}-${parsedDate.getMonth() + 1}-${parsedDate.getDate()}` : null;
   }
 
-  static mapDateStringToDate(dateSting: string): Date {
+  static mapDateStringToDate(dateString: string): Date {
     let parsedDate: Date = null;
 
-    if (dateSting) {
+    if (dateString) {
       // Date is a Sting with Format yyyy-mm-dd
-      const splitDate: string[] = dateSting.split('-');
-      parsedDate = new Date(Number(splitDate[0]), Number(splitDate[1]), Number(splitDate[2]));
+      const splitDate: string[] = dateString.split('-');
+      parsedDate = new Date(Number(splitDate[0]), Number(splitDate[1]) - 1, Number(splitDate[2]));
     }
 
     return parsedDate;

@@ -23,7 +23,7 @@ describe('TopicDescriptionMapper', () => {
 
   beforeEach(() => {
     description = new OkrTopicDescription(1, 'DescriptionName', '2', ['2', '3', '4'], ['3', '4'], 'description',
-      'Contributes To', 'Delimination', new Date(2021, 1, 1), 'Dependencies', 'Resources', 'Handover Plan',
+      'Contributes To', 'Delimination', new Date(2021, 0, 1), 'Dependencies', 'Resources', 'Handover Plan',
     );
 
     descriptionDto = {
