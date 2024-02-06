@@ -1,6 +1,7 @@
-package org.burningokr.service.security.authenticationUserContext;
+package org.burningokr.unit.service.security.authenticationUserContext;
 
 import org.burningokr.model.users.User;
+import org.burningokr.service.security.authenticationUserContext.BurningOkrAuthentication;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.oauth2.jwt.Jwt;

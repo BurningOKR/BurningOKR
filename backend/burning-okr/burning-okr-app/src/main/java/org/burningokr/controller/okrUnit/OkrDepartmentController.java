@@ -144,8 +144,8 @@ public class OkrDepartmentController {
   @PreAuthorize("@childUnitAuthorizationService.hasManagerPrivilegesForChildUnit(#departmentId)")
   public ResponseEntity<OkrDepartmentDto> updateDepartment(
     @PathVariable long departmentId,
-    @Valid
     @RequestBody
+    @Valid
     OkrDepartmentDto okrDepartmentDto
   )
     throws DuplicateTeamMemberException {

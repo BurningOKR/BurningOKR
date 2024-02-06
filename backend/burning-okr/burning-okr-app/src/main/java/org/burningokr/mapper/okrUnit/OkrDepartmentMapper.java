@@ -6,6 +6,7 @@ import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.model.okr.Objective;
 import org.burningokr.model.okrUnits.OkrBranch;
 import org.burningokr.model.okrUnits.OkrDepartment;
+import org.burningokr.model.okrUnits.OkrUnit;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,13 +25,19 @@ public class OkrDepartmentMapper implements DataMapper<OkrDepartment, OkrDepartm
     okrDepartment.setName(okrDepartmentDto.getUnitName());
     okrDepartment.setPhoto(okrDepartmentDto.getPhoto());
     okrDepartment.setLabel(okrDepartmentDto.getLabel());
-    okrDepartment.setParentOkrUnit(null);
     okrDepartment.setOkrMasterId(okrDepartmentDto.getOkrMasterId());
     okrDepartment.setOkrTopicSponsorId(okrDepartmentDto.getOkrTopicSponsorId());
     okrDepartment.setOkrMemberIds(okrDepartmentDto.getOkrMemberIds());
     okrDepartment.setActive(okrDepartmentDto.getIsActive());
 
     okrDepartment.setObjectives(new ArrayList<>());
+
+    OkrUnit parentOkrUnit = null;
+    if (okrDepartmentDto.getParentUnitId() != null) {
+      parentOkrUnit = new OkrDepartment();
+      parentOkrUnit.setId(okrDepartmentDto.getParentUnitId());
+    }
+    okrDepartment.setParentOkrUnit(parentOkrUnit);
 
     log.debug("Mapped OkrDepartmentDto (id: %d) to OkrDepartment.".formatted(okrDepartmentDto.getOkrUnitId()));
     return okrDepartment;

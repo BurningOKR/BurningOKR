@@ -30,6 +30,7 @@ public class KeyResultMapper implements DataMapper<KeyResult, KeyResultDto> {
     keyResult.setStartValue(keyResultDto.getStartValue());
     keyResult.setCurrentValue(keyResultDto.getCurrentValue());
     keyResult.setTargetValue(keyResultDto.getTargetValue());
+
     keyResult.setSequence(keyResultDto.getSequence());
 
     Objective parentObjective = null;
@@ -41,8 +42,11 @@ public class KeyResultMapper implements DataMapper<KeyResult, KeyResultDto> {
 
     keyResult.setNotes(new ArrayList<>());
 
-    keyResult.setMilestones(
-      keyResultMilestoneMapper.mapDtosToEntities(keyResultDto.getKeyResultMilestoneDtos()));
+    if (keyResultDto.getKeyResultMilestoneDtos() != null) {
+      keyResult.setMilestones(
+          keyResultMilestoneMapper.mapDtosToEntities(keyResultDto.getKeyResultMilestoneDtos()));
+    }
+
 
     log.debug("Mapped KeyResultDto (id: %d) to KeyResult.".formatted(keyResultDto.getId()));
     return keyResult;
@@ -50,7 +54,7 @@ public class KeyResultMapper implements DataMapper<KeyResult, KeyResultDto> {
 
   @Override
   public KeyResultDto mapEntityToDto(KeyResult keyResult) {
-    KeyResultDto keyResultDto = new KeyResultDto();
+    KeyResultDto keyResultDto = KeyResultDto.builder().build();
 
     keyResultDto.setId(keyResult.getId());
     keyResultDto.setParentObjectiveId(keyResult.getParentObjective().getId());
@@ -70,7 +74,7 @@ public class KeyResultMapper implements DataMapper<KeyResult, KeyResultDto> {
     keyResultDto.setNoteIds(noteIds);
 
     keyResultDto.setKeyResultMilestoneDtos(
-      keyResultMilestoneMapper.mapEntitiesToDtos(keyResult.getMilestones()));
+        keyResultMilestoneMapper.mapEntitiesToDtos(keyResult.getMilestones()));
 
     log.debug("Mapped KeyResult (id: %d) to KeyResultDto.".formatted(keyResult.getId()));
     return keyResultDto;

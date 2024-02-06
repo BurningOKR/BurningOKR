@@ -1,5 +1,6 @@
 package org.burningokr.service.okr;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.burningokr.model.activity.Action;
 import org.burningokr.model.okr.Note;
@@ -7,7 +8,6 @@ import org.burningokr.model.okr.NoteKeyResult;
 import org.burningokr.repositories.okr.NoteKeyResultRepository;
 import org.burningokr.repositories.okr.NoteRepository;
 import org.burningokr.service.activity.ActivityService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,22 +15,12 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class NoteService {
 
-  private NoteRepository noteRepository;
-  private NoteKeyResultRepository noteKeyResultRepository;
-  private ActivityService activityService;
-
-  @Autowired
-  public NoteService(
-    NoteRepository noteRepository,
-    NoteKeyResultRepository noteKeyResultRepository,
-    ActivityService activityService
-  ) {
-    this.noteRepository = noteRepository;
-    this.noteKeyResultRepository = noteKeyResultRepository;
-    this.activityService = activityService;
-  }
+  private final NoteRepository noteRepository;
+  private final NoteKeyResultRepository noteKeyResultRepository;
+  private final ActivityService activityService;
 
   public Note findById(Long noteId) {
     return noteRepository.findByIdOrThrow(noteId);
@@ -38,11 +28,7 @@ public class NoteService {
 
   public Note findByIdExtendedRepositories(Long noteId) {
     Optional<NoteKeyResult> noteKeyResult = noteKeyResultRepository.findById(noteId);
-    if (noteKeyResult.isPresent()) {
-      return noteKeyResult.get();
-    }
-
-    return null;
+    return noteKeyResult.orElse(null);
   }
 
   /**

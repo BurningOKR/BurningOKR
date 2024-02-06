@@ -1,10 +1,12 @@
 package org.burningokr.dto.okr;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class NoteKeyResultDto extends NoteDto {
 
   private Long parentKeyResultId;

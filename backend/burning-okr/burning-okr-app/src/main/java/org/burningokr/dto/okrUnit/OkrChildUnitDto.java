@@ -4,22 +4,26 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 @Data
 @JsonTypeInfo(
-  use = JsonTypeInfo.Id.NAME,
-  include = JsonTypeInfo.As.PROPERTY,
-  property = "__okrUnitType",
-  visible = true
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "__okrUnitType",
+    visible = true
 )
 @JsonSubTypes(
-  {
-    @JsonSubTypes.Type(value = OkrDepartmentDto.class, name = "DEPARTMENT"),
-    @JsonSubTypes.Type(value = OkrBranchDto.class, name = "OKR_BRANCH")
-  }
+    {
+        @JsonSubTypes.Type(value = OkrDepartmentDto.class, name = "DEPARTMENT"),
+        @JsonSubTypes.Type(value = OkrBranchDto.class, name = "OKR_BRANCH")
+    }
 )
-public abstract class OkrChildUnitDto extends OkrUnitDto {
+@SuperBuilder
+@AllArgsConstructor
+public  class OkrChildUnitDto extends OkrUnitDto {
 
   protected UnitType __okrUnitType;
   @NotNull
@@ -49,5 +53,12 @@ public abstract class OkrChildUnitDto extends OkrUnitDto {
 
   public void setIsParentUnitABranch(boolean parentUnitADepartment) {
     isParentUnitABranch = parentUnitADepartment;
+  }
+
+  public OkrChildUnitDto(OkrUnitDto parentDto, OkrChildUnitDto dto) {
+    this.__okrUnitType = dto.__okrUnitType;
+    this.parentUnitId = dto.parentUnitId;
+    this.isActive = dto.isActive;
+    this.isParentUnitABranch = dto.isParentUnitABranch;
   }
 }

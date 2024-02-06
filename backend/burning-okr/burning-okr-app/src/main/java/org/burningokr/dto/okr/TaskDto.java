@@ -14,12 +14,16 @@ import java.util.UUID;
 public class TaskDto {
   private Long id;
 
-  @Size(max = 255, message = "The title of an objective may not be longer than 255 characters.")
+  @NotNull
+  @Size(
+    min = 1,
+    max = 255,
+    message = "The title of an objective may not be empty or longer than {max} characters.")
   private String title;
 
   @Size(
     max = 1023,
-    message = "The description of an objective is not allowed to be longer than 1023 characters."
+    message = "The description of an objective may not be longer than {max} characters."
   )
   private String description;
 
@@ -32,10 +36,6 @@ public class TaskDto {
   private Long parentTaskBoardId;
   private Long previousTaskId;
   private Long version;
-
-  public boolean hasAssignedUsers() {
-    return assignedUserIds.isEmpty();
-  }
 
   public boolean hasAssignedKeyResult() {
     return assignedKeyResultId != null;

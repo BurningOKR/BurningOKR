@@ -4,6 +4,6 @@ export interface Comment {
   noteId?: CommentId;
   userId: string;
   noteBody: string;
-  date: number[];
+  date: Date;
   parentKeyResultId?: number;
 }

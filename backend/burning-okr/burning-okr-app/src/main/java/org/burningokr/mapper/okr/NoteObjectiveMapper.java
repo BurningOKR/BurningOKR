@@ -1,5 +1,6 @@
 package org.burningokr.mapper.okr;
 
+import lombok.RequiredArgsConstructor;
 import org.burningokr.dto.okr.NoteDto;
 import org.burningokr.dto.okr.NoteObjectiveDto;
 import org.burningokr.mapper.interfaces.DataMapper;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Service
+@RequiredArgsConstructor
 public class NoteObjectiveMapper extends NoteAbstractMapper
   implements DataMapper<NoteObjective, NoteObjectiveDto> {
 

@@ -10,7 +10,6 @@ import org.burningokr.dto.okrUnit.OkrDepartmentDto;
 import org.burningokr.dto.okrUnit.OkrUnitSchemaDto;
 import org.burningokr.mapper.interfaces.DataMapper;
 import org.burningokr.mapper.okrUnit.OkrBranchSchemaMapper;
-import org.burningokr.mapper.okrUnit.OkrDepartmentMapper;
 import org.burningokr.model.cycles.Cycle;
 import org.burningokr.model.cycles.CycleState;
 import org.burningokr.model.okrUnits.OkrBranch;
@@ -33,6 +32,7 @@ public class CompanyController {
   private final DataMapper<OkrCompany, OkrCompanyDto> companyMapper;
   private final DataMapper<Cycle, CycleDto> cycleMapper;
   private final DataMapper<OkrBranch, OkrBranchDto> okrBranchMapper;
+  private final DataMapper<OkrDepartment, OkrDepartmentDto> okrDepartmentMapper;
   private final OkrBranchSchemaMapper okrUnitSchemaMapper;
   private final AuthenticationUserContextService authenticationUserContextService;
 
@@ -71,7 +71,7 @@ public class CompanyController {
    */
   @GetMapping("/companies/{companyId}")
   public ResponseEntity<OkrCompanyDto> getCompanyById(
-    @PathVariable long companyId
+      @PathVariable long companyId
   ) {
     OkrCompany okrCompany = this.companyService.findById(companyId);
     return ResponseEntity.ok(companyMapper.mapEntityToDto(okrCompany));
@@ -85,7 +85,7 @@ public class CompanyController {
    */
   @GetMapping("/companies/{companyId}/history")
   public ResponseEntity<Collection<OkrCompanyDto>> getCompanyHistoryByCompanyId(
-    @PathVariable long companyId
+      @PathVariable long companyId
   ) {
     Collection<OkrCompany> companies = companyService.findCompanyHistoryByCompanyId(companyId);
     return ResponseEntity.ok(companyMapper.mapEntitiesToDtos(companies));
@@ -99,7 +99,7 @@ public class CompanyController {
    */
   @GetMapping("/companies/{companyId}/cycles")
   public ResponseEntity<Collection<CycleDto>> getCompanyCycleList(
-    @PathVariable long companyId
+      @PathVariable long companyId
   ) {
     Collection<Cycle> cycles = companyService.findCycleListByCompanyId(companyId);
     return ResponseEntity.ok(cycleMapper.mapEntitiesToDtos(cycles));
@@ -113,13 +113,13 @@ public class CompanyController {
    */
   @GetMapping("/companies/{companyId}/unit")
   public ResponseEntity<Collection<OkrUnitSchemaDto>> getDepartmentSchemaOfCompany(
-    @PathVariable long companyId
+      @PathVariable long companyId
   ) {
     OkrCompany okrCompany = this.companyService.findById(companyId);
     return ResponseEntity.ok(
-      okrUnitSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
-              okrCompany.getOkrChildUnits(), authenticationUserContextService.getAuthenticatedUser().getId()
-      )
+        okrUnitSchemaMapper.mapOkrChildUnitListToOkrChildUnitSchemaList(
+            okrCompany.getOkrChildUnits(), authenticationUserContextService.getAuthenticatedUser().getId()
+        )
     );
   }
 
@@ -132,9 +132,9 @@ public class CompanyController {
   @PostMapping("/companies")
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<OkrCompanyDto> addCompany(
-    @Valid
-    @RequestBody
-    OkrCompanyDto okrCompanyDto
+      @Valid
+      @RequestBody
+      OkrCompanyDto okrCompanyDto
   ) {
     OkrCompany okrCompany = companyMapper.mapDtoToEntity(okrCompanyDto);
     okrCompany = this.companyService.createCompany(okrCompany);
@@ -151,24 +151,21 @@ public class CompanyController {
   @PostMapping("/companies/{companyId}/departments")
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<OkrDepartmentDto> addDepartmentToCompanyById(
-    @PathVariable long companyId,
-    @Valid
-    @RequestBody
-    OkrDepartmentDto okrDepartmentDto
+      @PathVariable long companyId,
+      @RequestBody @Valid OkrDepartmentDto okrDepartmentDto
   ) {
-    DataMapper<OkrDepartment, OkrDepartmentDto> departmentMapper = new OkrDepartmentMapper();
-    OkrDepartment okrDepartment = departmentMapper.mapDtoToEntity(okrDepartmentDto);
+    OkrDepartment okrDepartment = okrDepartmentMapper.mapDtoToEntity(okrDepartmentDto);
     okrDepartment = this.companyService.createDepartment(companyId, okrDepartment);
-    return ResponseEntity.ok(departmentMapper.mapEntityToDto(okrDepartment));
+    return ResponseEntity.ok(this.okrDepartmentMapper.mapEntityToDto(okrDepartment));
   }
 
   @PostMapping("/companies/{companyId}/branch")
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<OkrBranchDto> addBranchToCompanyById(
-    @PathVariable long companyId,
-    @Valid
-    @RequestBody
-    OkrBranchDto okrBranchDTO
+      @PathVariable long companyId,
+      @Valid
+      @RequestBody
+      OkrBranchDto okrBranchDTO
   ) {
     OkrBranch okrBranch = okrBranchMapper.mapDtoToEntity(okrBranchDTO);
     OkrBranch newBranch = companyService.createOkrBranch(companyId, okrBranch);
@@ -185,10 +182,11 @@ public class CompanyController {
   @PutMapping("/companies/{companyId}")
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity<OkrCompanyDto> updateCompanyById(
-    @PathVariable long companyId,
-    @RequestBody OkrCompanyDto okrCompanyDto
+      @PathVariable long companyId,
+      @RequestBody @Valid OkrCompanyDto okrCompanyDto
   ) {
     OkrCompany okrCompany = companyMapper.mapDtoToEntity(okrCompanyDto);
+    okrCompany.setId(companyId);
     okrCompany = this.companyService.updateCompany(okrCompany);
     return ResponseEntity.ok(companyMapper.mapEntityToDto(okrCompany));
   }
@@ -202,7 +200,7 @@ public class CompanyController {
   @DeleteMapping("/companies/{companyId}")
   @PreAuthorize("@authorizationService.isAdmin()")
   public ResponseEntity deleteCompany(
-    @PathVariable Long companyId
+      @PathVariable Long companyId
   ) {
     companyService.deleteCompany(companyId, true);
     return ResponseEntity.ok().build();

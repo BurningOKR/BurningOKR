@@ -32,11 +32,11 @@ public class KeyResult implements Trackable<Long> {
   private String description;
 
   @PositiveOrZero
-  private long startValue;
+  private Long startValue;
   @PositiveOrZero
-  private long currentValue;
+  private Long currentValue;
   @PositiveOrZero
-  private long targetValue;
+  private Long targetValue;
 
   private Unit unit = Unit.NUMBER;
 

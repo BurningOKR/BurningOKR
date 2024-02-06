@@ -111,14 +111,13 @@ public class TopicDraftController {
   ) {
     noteTopicDraftDto.setParentTopicDraftId(topicDraftId);
     NoteTopicDraft noteTopicDraft = noteTopicDraftMapper.mapDtoToEntity(noteTopicDraftDto);
-    noteTopicDraft.setId(null);
     noteTopicDraft = this.okrTopicDraftService.createNote(noteTopicDraft);
     return ResponseEntity.ok(noteTopicDraftMapper.mapEntityToDto(noteTopicDraft));
   }
 
   @PostMapping("/topicDrafts/create")
   public ResponseEntity<OkrTopicDraftDto> createOkrTopicDraft(
-    @RequestBody OkrTopicDraftDto topicDraftDto
+    @RequestBody @Valid OkrTopicDraftDto topicDraftDto
   ) {
     OkrTopicDraft topicDraft = okrTopicDraftMapper.mapDtoToEntity(topicDraftDto);
     OkrTopicDraft newOkrTopicDraft = okrTopicDraftService.createTopicDraft(topicDraft);

@@ -12,6 +12,7 @@ postgres = '42.+'
 flyway = '9.19.4'
 mssql = '10.+'
 apache-poi = '5.+'
+commons-lang = '3.+'
 guava = '31.+'
 springdoc = '2.+'
 
@@ -46,6 +47,7 @@ jakarta-mail = { module = 'org.eclipse.angus:angus-mail', version.ref = 'jakarta
 
 # jackson
 jackson-databind = { module = 'com.fasterxml.jackson.core:jackson-databind', version.ref = 'jackson' }
+jackson-annotations = { module = 'com.fasterxml.jackson.core:jackson-annotations', version.ref = 'jackson' }
 
 # swagger
 swagger-swagger2 = { module = 'io.springfox:springfox-swagger2', version.ref = 'swagger' }
@@ -64,6 +66,7 @@ db-hibernate-envers = { module = 'org.hibernate.orm:hibernate-envers', version.r
 # apache poi
 apache-poi = { module = 'org.apache.poi:poi', version.ref = 'apache-poi' }
 apache-poiOoxml = { module = 'org.apache.poi:poi-ooxml', version.ref = 'apache-poi' }
+apache-commons = { module ='org.apache.commons:commons-lang3',  version.ref = 'commons-lang' }
 
 # guava
 guava = { module = 'com.google.guava:guava', version.ref = 'guava' }

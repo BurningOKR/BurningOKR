@@ -37,9 +37,9 @@ public class ObjectiveRowBuilderServiceTest {
   private ObjectiveRowBuilderService objectiveRowBuilderService;
   private OkrDepartment okrDepartment;
   private Cycle cycle;
-  private long objectiveId = 55L;
+  private final long objectiveId = 55L;
   private OkrCompany okrCompany;
-  private long companyId = 400L;
+  private final long companyId = 400L;
   private Objective objective;
   private KeyResult keyResult;
 
@@ -59,9 +59,9 @@ public class ObjectiveRowBuilderServiceTest {
     okrDepartment.setId(departmentId);
     okrDepartment.setParentOkrUnit(okrCompany);
     keyResult = new KeyResult();
-    keyResult.setStartValue(0);
-    keyResult.setTargetValue(10);
-    keyResult.setCurrentValue(0);
+    keyResult.setStartValue(0L);
+    keyResult.setTargetValue(10L);
+    keyResult.setCurrentValue(0L);
 
   }
 
@@ -162,7 +162,7 @@ public class ObjectiveRowBuilderServiceTest {
     objective.setParentOkrUnit(okrDepartment);
     okrDepartment.getObjectives().add(objective);
     objective.getKeyResults().add(keyResult);
-    keyResult.setCurrentValue(0);
+    keyResult.setCurrentValue(0L);
 
     Collection<ObjectiveRow> rows =
             objectiveRowBuilderService.generateForOkrChildUnit(departmentId);
@@ -177,7 +177,7 @@ public class ObjectiveRowBuilderServiceTest {
     objective.setParentOkrUnit(okrDepartment);
     okrDepartment.getObjectives().add(objective);
     objective.getKeyResults().add(keyResult);
-    keyResult.setCurrentValue(5);
+    keyResult.setCurrentValue(5L);
 
     Collection<ObjectiveRow> rows =
             objectiveRowBuilderService.generateForOkrChildUnit(departmentId);
@@ -193,11 +193,11 @@ public class ObjectiveRowBuilderServiceTest {
     objective.setParentOkrUnit(okrDepartment);
     okrDepartment.getObjectives().add(objective);
     objective.getKeyResults().add(keyResult);
-    keyResult.setCurrentValue(4);
+    keyResult.setCurrentValue(4L);
     KeyResult keyResult1 = new KeyResult();
-    keyResult1.setStartValue(0);
-    keyResult1.setCurrentValue(4);
-    keyResult1.setTargetValue(5);
+    keyResult1.setStartValue(0L);
+    keyResult1.setCurrentValue(4L);
+    keyResult1.setTargetValue(5L);
     objective.getKeyResults().add(keyResult1);
 
     Collection<ObjectiveRow> rows =
@@ -286,7 +286,7 @@ public class ObjectiveRowBuilderServiceTest {
     objective.setParentOkrUnit(okrDepartment);
     okrDepartment.getObjectives().add(objective);
     objective.getKeyResults().add(keyResult);
-    int start = 3;
+    Long start = 3L;
     keyResult.setStartValue(start);
 
     Collection<ObjectiveRow> rows =
@@ -303,7 +303,7 @@ public class ObjectiveRowBuilderServiceTest {
     objective.setParentOkrUnit(okrDepartment);
     okrDepartment.getObjectives().add(objective);
     objective.getKeyResults().add(keyResult);
-    int ende = 5;
+    Long ende = 5L;
     keyResult.setTargetValue(ende);
 
     Collection<ObjectiveRow> rows =
@@ -320,7 +320,7 @@ public class ObjectiveRowBuilderServiceTest {
     objective.setParentOkrUnit(okrDepartment);
     okrDepartment.getObjectives().add(objective);
     objective.getKeyResults().add(keyResult);
-    int current = 4;
+    Long current = 4L;
     keyResult.setCurrentValue(current);
 
     Collection<ObjectiveRow> rows =

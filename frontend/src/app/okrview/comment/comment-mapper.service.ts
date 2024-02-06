@@ -60,20 +60,14 @@ export class CommentMapperService {
 
     mappedViewCommentList.sort((a, b) => {
       return a.date.getTime() - b.date.getTime();
+      // return null;
     });
 
     return mappedViewCommentList;
   }
 
   mapCommentDto(comment: Comment): ViewComment {
-    const date: Date = new Date(
-      comment.date[0],
-      comment.date[1] - 1,
-      comment.date[2],
-      comment.date[3],
-      comment.date[4],
-    );
-    const viewComment: ViewComment = new ViewComment(comment.noteId, comment.userId, comment.noteBody, date);
+    const viewComment: ViewComment = new ViewComment(comment.noteId, comment.userId, comment.noteBody, comment.date);
     this.userMapperService
       .getUserById$(viewComment.userId)
       .pipe(take(1))
@@ -91,15 +85,7 @@ export class CommentMapperService {
       noteBody: viewComment.text,
       userId: viewComment.userId,
       parentKeyResultId: 0,
-      date: [
-        Number(viewComment.date.getFullYear()),
-        Number(viewComment.date.getMonth()) + 1,
-        Number(viewComment.date.getDate()),
-        Number(viewComment.date.getHours()),
-        Number(viewComment.date.getMinutes()),
-        Number(viewComment.date.getSeconds()),
-        Number(viewComment.date.getMilliseconds()),
-      ],
+      date: viewComment.date
     };
   }
 }

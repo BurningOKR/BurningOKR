@@ -26,8 +26,8 @@ public class StructureController {
    */
   @GetMapping("/structure")
   public ResponseEntity<Collection<StructureDto>> getAllCompanyStructures(
-    @RequestParam(name = "active", required = false) Boolean activeFilter,
-    @RequestParam(name = "attachCycleName", defaultValue = "false") boolean attachCycleName
+      @RequestParam(name = "active", required = false) Boolean activeFilter,
+      @RequestParam(name = "attachCycleName", defaultValue = "false") boolean attachCycleName
   ) {
     Collection<OkrCompany> okrCompanies;
 
