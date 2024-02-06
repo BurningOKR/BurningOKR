@@ -33,7 +33,7 @@ subprojects {
     }
 
     test {
-        useJUnitPlatform() // TODO enable again
+        useJUnitPlatform()
         systemProperty "spring.config.name", "application-test"
         testLogging {
             afterSuite { descriptor, result ->
