@@ -35,7 +35,7 @@ describe('TopicDraftMapper', () => {
   beforeEach(() => {
     topicDraft = new OkrTopicDraft(1, status.draft, userMock, 3, 'TopicDraft', 'initiatorId', ['5', '6'],
       ['5', '6'], 'Acceptance Criteria', 'Contributes to', 'Delimitation',
-      new Date(2021, 1, 1), 'Dependencies', 'Resources', 'Handover plan',
+      new Date(2021, 0, 1), 'Dependencies', 'Resources', 'Handover plan',
     );
     topicDraftDto = {
       okrParentUnitId: 1,
