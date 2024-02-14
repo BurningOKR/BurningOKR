@@ -13,7 +13,7 @@ services:
     networks:
       - b-okr-backend-network
   backend:
-    image: ghcr.io/burningokr/b-okr-be-dev:latest
+    image: ghcr.io/burningokr/b-okr-backend:latest
     container_name: burning-okr-backend
     restart: unless-stopped
     env_file:
@@ -24,7 +24,7 @@ services:
       - b-okr-frontend-network
       - b-okr-backend-network
   frontend:
-    image: ghcr.io/burningokr/b-okr-fe-dev:latest
+    image: ghcr.io/burningokr/b-okr-frontend:latest
     container_name: burning-okr-frontend
     restart: unless-stopped
     depends_on:
