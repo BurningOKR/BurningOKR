@@ -13,7 +13,7 @@ BurningOKR has been developed as a web application with an Angular Frontend and 
 When you have Docker and Docker-Compose installed you can proceed with the next steps, otherwise please install Docker and Docker-Compose first.  
 You can use our docker-compose file for easy use and compatibility!
 
-1. Download the [docker-compose-prod.yml](/docker/docker-compose-prod.yml) file
+1. Download the [docker-compose.yml](/docker/docker-compose.yml) file
 2. Download [backend.env.sample](/docker/backend.env.sample) file and **rename** it to backend.env
 3. Download [postgres.env.sample](/docker/postgres.env.sample) file and **rename** it to postgres.env
 4. Now fill in your configurations in the two downloaded .env-files
